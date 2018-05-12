@@ -1,0 +1,26 @@
+<wicket:panel xmlns:wicket="http://www.w3.org/1999/xhtml">
+    <div id="flex-container">
+        <div id="left" class="ui container">
+            <div id="data" wicket:id="dataPanel">data</div>
+            <div id="field" wicket:id="fieldPanel">field</div>
+        </div>
+        <div id="center" class="ui container">
+            <div id="search" wicket:id="searchFilterPanel">search</div>
+            <div>
+                <label wicket:id="results"></label>
+                <label>&nbsp;results</label>
+            </div>
+            <table class="ui stripped table verticalScroll" wicket:id="container">
+                <tbody>
+                <tr class="leido" wicket:id="item">
+                    <td class="collapsing"><a wicket:id="view" title="View"><i class="arrow right icon"></i></a></td>
+                    <td class=""><label wicket:id="name" class="ui small_xs label">name</label></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="right" class="ui container">
+
+        </div>
+    </div>
+</wicket:panel>

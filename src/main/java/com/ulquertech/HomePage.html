@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.3-strict.dtd">
+<head>
+    <title>YGOPro - Puzzle Maker</title>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="resources/style.css">
+</head>
+<body style="background: #F4F5F2;">
+<div class="ui header">YGOPro - Puzzle Maker</div>
+<div id="body" class="ui container">
+    <div id="menu" class="ui secondary menu">
+        <div class="item"><a class="ui button" wicket:id="nuevo" title="New"><i
+                class="linkify icon"></i></a></div>
+        <div class="item"><a class="ui button" wicket:id="abrir" title="Open"><i
+                class="linkify icon"></i></a></div>
+        <div class="item"><a class="ui button" wicket:id="guardar" title="Save"><i
+                class="linkify icon"></i></a></div>
+    </div>
+    <div id="content" wicket:id="content">content</div>
+</div>
+<div wicket:id="notifier"></div>
+</body>
+<script>$('.dropdown').dropdown({transition: 'drop'});</script>
+</html>

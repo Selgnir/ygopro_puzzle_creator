@@ -1,0 +1,12 @@
+<wicket:panel xmlns:wicket="http://www.w3.org/1999/xhtml">
+    <div class="ui secondary segment">
+        <div class="ui header" wicket:id="mensaje">Confirmación</div>
+        <div class="ui content">
+            <div style="margin-top: 20px;">
+                <a wicket:id="aceptar" onclick="$(this).addClass('loading'); $(this).addClass('disabled');"
+                   class="ui primary blue button" value="Aceptar">Aceptar</a>
+                <a wicket:id="cancelar" class="ui blue cancel button">Cancelar</a>
+            </div>
+        </div>
+    </div>
+</wicket:panel>

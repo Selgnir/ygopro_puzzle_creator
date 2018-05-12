@@ -1,0 +1,19 @@
+#wrapper {
+    overflow: hidden;
+}
+
+#columnaIzquierda {
+    width: 33%;
+    float: left;
+}
+
+#columnaCentral {
+    width: 33%;
+    float: left;
+    overflow: hidden;
+}
+
+#columnaDerecha {
+    width: 33%;
+    overflow: hidden;
+}

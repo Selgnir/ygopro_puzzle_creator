@@ -1,0 +1,33 @@
+<wicket:panel xmlns:wicket="http://www.w3.org/1999/xhtml">
+    <form class="ui form" wicket:id="form">
+        <div class="ui container">
+            <div class="field">
+                <label>Puzzle Name</label>
+                <input type="text" wicket:id="puzzleName"/>
+            </div>
+            <div class="field">
+                <label>Oponent Name</label>
+                <input type="text" wicket:id="oponentName"/>
+            </div>
+        </div>
+        <div class="ui container">
+            <div class="field">
+                <label>Your LP</label>
+                <input type="number" wicket:id="userLP"/>
+            </div>
+            <div class="field">
+                <label>Oponent LP</label>
+                <input type="number" wicket:id="oponentLP"/>
+            </div>
+        </div>
+        <div class="ui container">
+            <div class="field">
+                <label>Master Rule</label>
+                <select wicket:id="masterRule"/>
+            </div>
+            <div class="field">
+                <div class="ui primary submit blue button" wicket:id="validar">Validate</div>
+            </div>
+        </div>
+    </form>
+</wicket:panel>
