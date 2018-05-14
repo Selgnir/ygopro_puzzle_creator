@@ -114,6 +114,10 @@ public class PuzzleCardBuilder implements Serializable {
         return null;
     }
 
+    private PuzzleCard createPuzzleCard(Integer id, Integer user, Integer zone, String location, String position) {
+        return new PuzzleCard(id, user, zone, location, position);
+    }
+
     public void addCard(PuzzleCard card, Integer masterRule, StringBuilder stringBuilder) {
         switch (card.getLocation()) {
             case "LOCATION_MZONE":
@@ -139,10 +143,6 @@ public class PuzzleCardBuilder implements Serializable {
         }
     }
 
-    private PuzzleCard createPuzzleCard(Integer id, Integer user, Integer zone, String location, String position) {
-        return new PuzzleCard(id, user, zone, location, position);
-    }
-
     public void removeCard(PuzzleCard card) {
         PuzzleCard cardToRemove = null;
         String actualLocation;
@@ -160,7 +160,7 @@ public class PuzzleCardBuilder implements Serializable {
 
         //recupera la puzzleCard de la lista
         for (PuzzleCard puzzleCard : puzzleCards) {
-            if (puzzleCard.getId() == card.getId() && puzzleCard.getUser() == card.getUser() && puzzleCard.getZone() == card.getZone() && puzzleCard.getLocation().equals(actualLocation) && puzzleCard.getPosition().equals(card.getPosition())) {
+            if (puzzleCard.getId().equals(card.getId()) && puzzleCard.getUser().equals(card.getUser()) && puzzleCard.getZone().equals(card.getZone()) && puzzleCard.getLocation().equals(actualLocation) && puzzleCard.getPosition().equals(card.getPosition())) {
                 cardToRemove = puzzleCard;
             }
         }
@@ -198,7 +198,7 @@ public class PuzzleCardBuilder implements Serializable {
         Integer secZone;
         if (masterRule == 4) {
             card.setLocation("LOCATION_SZONE");
-            secZone = masterRule;
+            secZone = 4;
         } else if (masterRule == 3) {
             card.setLocation("LOCATION_PZONE");
             secZone = 2;
@@ -208,6 +208,7 @@ public class PuzzleCardBuilder implements Serializable {
         }
         map = getMapa(card.getUser(), card.getLocation());
 
+//        card.setZone(!map.get(0) ? 0 : (!map.get(secZone) ? secZone : null));
         if (!map.get(0)) {
             card.setZone(0);
         } else if (!map.get(secZone)) {
@@ -216,7 +217,6 @@ public class PuzzleCardBuilder implements Serializable {
             stringBuilder.append("Both pendulum zones are ocupied");
             return;
         }
-//        card.setZone(!map.get(0) ? 0 : (!map.get(secZone) ? secZone : null));
 
         puzzleCards.add(card);
         map.put(card.getZone(), true);
@@ -254,7 +254,6 @@ public class PuzzleCardBuilder implements Serializable {
     private void addToOverlay(PuzzleCard card, StringBuilder stringBuilder) {
         card.setLocation("LOCATION_MZONE");
         if (isXYZMonsterIn(card)) {
-            card.setPosition("POS_FACEUP");
             puzzleCards.add(card);
         } else {
             stringBuilder.append("There is no XYZ monster in the selected monster zone");
@@ -265,7 +264,7 @@ public class PuzzleCardBuilder implements Serializable {
         Boolean existXYZ = false;
         for (PuzzleCard puzzleCard : puzzleCards) {
             Card carta = cartasService.getCartaByID(puzzleCard.getId());
-            if (puzzleCard.getId() == card.getId() && puzzleCard.getUser() == card.getUser() && puzzleCard.getZone() == card.getZone() && puzzleCard.getLocation().equals("LOCATION_MZONE") && !puzzleCard.getPosition().equals("POS_FACEUP") && carta.getType().contains("XYZ")) {
+            if (puzzleCard.getId().equals(card.getId()) && puzzleCard.getUser().equals(card.getUser()) && puzzleCard.getZone().equals(card.getZone()) && puzzleCard.getLocation().equals("LOCATION_MZONE") && !puzzleCard.getPosition().equals("POS_FACEUP") && carta.getType().contains("XYZ")) {
                 existXYZ = true;
             }
         }
