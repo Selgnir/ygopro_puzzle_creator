@@ -17,13 +17,13 @@ public class Lua_creator {
 
             out.write("--" + datosPuzzle.getPuzzleName());
             out.newLine();
-            out.write("Debug.SetAIName(" + datosPuzzle.getOponentName() + ")");
+            out.write("Debug.SetAIName(" + datosPuzzle.getOpponentName() + ")");
             out.newLine();
             out.write("Debug.ReloadFieldBegin(DUEL_ATTACK_FIRST_TURN+DUEL_SIMPLE_AI," + datosPuzzle.getMasterRule() + ")");
             out.newLine();
             out.write("Debug.SetPlayerInfo(0," + datosPuzzle.getUserLP() + ",0,0)");
             out.newLine();
-            out.write("Debug.SetPlayerInfo(1," + datosPuzzle.getOponentLP() + ",0,0)");
+            out.write("Debug.SetPlayerInfo(1," + datosPuzzle.getOpponentLP() + ",0,0)");
             out.newLine();
 
             for (PuzzleCard puzzleCard : puzzleList) {

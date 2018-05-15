@@ -2,9 +2,9 @@ package com.ulquertech.dominio;
 
 public class DatosPuzzle {
     private String puzzleName = "My puzzle";
-    private String oponentName = "My oponent";
+    private String opponentName = "My opponent";
     private Integer userLP = 8000;
-    private Integer oponentLP = 8000;
+    private Integer opponentLP = 8000;
     private Integer masterRule = 4;
 
     public Integer getMasterRule() {
@@ -23,12 +23,12 @@ public class DatosPuzzle {
         this.puzzleName = puzzleName;
     }
 
-    public String getOponentName() {
-        return oponentName;
+    public String getOpponentName() {
+        return opponentName;
     }
 
-    public void setOponentName(String oponentName) {
-        this.oponentName = oponentName;
+    public void setOpponentName(String opponentName) {
+        this.opponentName = opponentName;
     }
 
     public int getUserLP() {
@@ -39,11 +39,11 @@ public class DatosPuzzle {
         this.userLP = userLP;
     }
 
-    public int getOponentLP() {
-        return oponentLP;
+    public int getOpponentLP() {
+        return opponentLP;
     }
 
-    public void setOponentLP(int oponentLP) {
-        this.oponentLP = oponentLP;
+    public void setOpponentLP(int opponentLP) {
+        this.opponentLP = opponentLP;
     }
 }

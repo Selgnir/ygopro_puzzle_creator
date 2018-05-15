@@ -25,15 +25,6 @@ public class PuzzleCardBuilder implements Serializable {
     private Map<Integer, Boolean> opM = new HashMap<>();
     private Map<Integer, Boolean> opS = new HashMap<>();
     private Map<Integer, Boolean> opP = new HashMap<>();
-    private Integer masterRule = 3;
-
-    public int getMasterRule() {
-        return masterRule;
-    }
-
-    public void setMasterRule(Integer masterRule) {
-        this.masterRule = masterRule;
-    }
 
     public PuzzleCardBuilder() {
         //inicializa los mapas de zonas de monstruos, hechizos, y pendulo, para los dos usuarios
@@ -165,21 +156,23 @@ public class PuzzleCardBuilder implements Serializable {
             }
         }
 
-        Card carta = cartasService.getCartaByID(cardToRemove.getId());
-        //si mi carta a remover es un XYZ, en la zona de monstruos, y no es una overlay unit
-        if (carta.getType().contains("XYZ") && cardToRemove.getLocation().equals("LOCATION_MZONE") && !cardToRemove.getPosition().equals("POS_FACEUP")) {
-            //revisa si tiene overlay units y las remueve
-            for (PuzzleCard puzzleCard : puzzleCards) {
-                //es una overlay unit de mi carta, si pertenece al mismo user, zone, location, y es una overlay unit
-                if (puzzleCard.getUser() == card.getUser() && puzzleCard.getZone() == card.getZone() && puzzleCard.getLocation().equals(actualLocation) && puzzleCard.getPosition().equals("POS_FACEUP")) {
-                    puzzleCards.remove(puzzleCard);
+        if (cardToRemove != null) {
+            Card carta = cartasService.getCartaByID(cardToRemove.getId());
+            //si mi carta a remover es un XYZ, en la zona de monstruos, y no es una overlay unit
+            if (carta.getType().contains("XYZ") && cardToRemove.getLocation().equals("LOCATION_MZONE") && !cardToRemove.getPosition().equals("POS_FACEUP")) {
+                //revisa si tiene overlay units y las remueve
+                for (PuzzleCard puzzleCard : puzzleCards) {
+                    //es una overlay unit de mi carta, si pertenece al mismo user, zone, location, y es una overlay unit
+                    if (puzzleCard.getUser().equals(card.getUser()) && puzzleCard.getZone().equals(card.getZone()) && puzzleCard.getLocation().equals(actualLocation) && puzzleCard.getPosition().equals("POS_FACEUP")) {
+                        puzzleCards.remove(puzzleCard);
+                    }
                 }
             }
+            //remueve la carta en cuestion
+            puzzleCards.remove(cardToRemove);
+            Map<Integer, Boolean> map = getMapa(card.getUser(), actualLocation);
+            if (map != null) map.put(card.getZone(), false);
         }
-        //remueve la carta en cuestion
-        puzzleCards.remove(cardToRemove);
-        Map<Integer, Boolean> map = getMapa(card.getUser(), actualLocation);
-        if (map != null) map.put(card.getZone(), false);
     }
 
     private void addToMonsterSpellZone(PuzzleCard card, StringBuilder stringBuilder) {
@@ -189,7 +182,7 @@ public class PuzzleCardBuilder implements Serializable {
             puzzleCards.add(card);
             map.put(card.getZone(), true);
         } else {
-            stringBuilder.append("The selected zone is ocupied");
+            stringBuilder.append("<li>The selected zone is ocupied</li>");
         }
     }
 
@@ -202,8 +195,10 @@ public class PuzzleCardBuilder implements Serializable {
         } else if (masterRule == 3) {
             card.setLocation("LOCATION_PZONE");
             secZone = 2;
+        } else if (!stringBuilder.toString().contains("<li>Select master rule 3 or higher to play with pendulum zones</li>")){
+            stringBuilder.append("<li>Select master rule 3 or higher to play with pendulum zones</li>");
+            return;
         } else {
-            stringBuilder.append("Select master rule 3 or higher to play with pendulum zones");
             return;
         }
         map = getMapa(card.getUser(), card.getLocation());
@@ -213,8 +208,8 @@ public class PuzzleCardBuilder implements Serializable {
             card.setZone(0);
         } else if (!map.get(secZone)) {
             card.setZone(secZone);
-        } else {
-            stringBuilder.append("Both pendulum zones are ocupied");
+        } else if (!stringBuilder.toString().contains("<li>Both pendulum zones are ocupied</li>")){
+            stringBuilder.append("<li>Both pendulum zones are ocupied</li>");
             return;
         }
 
@@ -232,10 +227,10 @@ public class PuzzleCardBuilder implements Serializable {
                 puzzleCards.add(card);
                 map.put(card.getZone(), true);
             } else {
-                stringBuilder.append("The selected Extra monster zone is ocupied");
+                stringBuilder.append("<li>The selected Extra monster zone is ocupied</li>");
             }
-        } else {
-            stringBuilder.append("Select master rule 4 to play with extra monster zones");
+        } else if (!stringBuilder.toString().contains("<li>Select master rule 4 to play with extra monster zones</li>")) {
+            stringBuilder.append("<li>Select master rule 4 to play with extra monster zones</li>");
         }
     }
 
@@ -247,7 +242,7 @@ public class PuzzleCardBuilder implements Serializable {
             puzzleCards.add(card);
             map.put(card.getZone(), true);
         } else {
-            stringBuilder.append("The selected field spell zone is ocupied");
+            stringBuilder.append("<li>The selected field spell zone is ocupied</li>");
         }
     }
 
@@ -256,7 +251,7 @@ public class PuzzleCardBuilder implements Serializable {
         if (isXYZMonsterIn(card)) {
             puzzleCards.add(card);
         } else {
-            stringBuilder.append("There is no XYZ monster in the selected monster zone");
+            stringBuilder.append("<li>There is no XYZ monster in the selected monster zone</li>");
         }
     }
 
@@ -297,43 +292,44 @@ public class PuzzleCardBuilder implements Serializable {
                         break;
                     case "LOCATION_PZONE":
                         map = opP;
-                        break;
                 }
-                break;
         }
         return map;
     }
 
-    private List<String> adaptToNewMasterRule() {
-        List<String> warnings = new ArrayList<>();
+    public void adaptToNewMasterRule(Integer masterRule, StringBuilder stringBuilder) {
         List<PuzzleCard> cardsToCheck = new ArrayList<>(puzzleCards);
 
         //si la masterRule es menor a 4 y tengo cartas en las extra monster zones, las remuevo del puzzle
         if (masterRule < 4) {
+            Boolean hayExtraMZ = false;
             for (PuzzleCard puzzleCard : cardsToCheck) {
                 if (puzzleCard.getLocation().equals("LOCATION_MZONE") && (puzzleCard.getZone() == 5 || puzzleCard.getZone() == 6) && !puzzleCard.getPosition().equals("POS_FACEUP")) {
                     removeCard(puzzleCard);
+                    hayExtraMZ = true;
                 }
             }
+            if (hayExtraMZ)
+                stringBuilder.append("<li>Select master rule 4 to play with extra monster zones</li>");
         }
         //remuevo las scalas de pendulo del puzzle e intento volver a agregar las
-        StringBuilder stringBuilder = new StringBuilder();
+        Boolean hayPendulo = false;
         for (PuzzleCard puzzleCard : cardsToCheck) {
             Card card = cartasService.getCartaByID(puzzleCard.getId());
             if (card.getType().contains("Pendulum") && (puzzleCard.getLocation().equals("LOCATION_PZONE") || (puzzleCard.getLocation().equals("LOCATION_SZONE") && (puzzleCard.getZone() == 0 || puzzleCard.getZone() == 4)))) {
                 removeCard(puzzleCard);
-                addToPendulumZONE(puzzleCard,stringBuilder,masterRule);
+                if (masterRule >= 3) {
+                    addToPendulumZONE(puzzleCard,stringBuilder,masterRule);
+                } else {
+                    hayPendulo = true;
+                }
             }
         }
-
-        if (stringBuilder.length() > 0) {
-            warnings.add(stringBuilder.toString()); //TODO: revisar que no esté mezclando cosas
-        }
-
-        return warnings;
+        if(hayPendulo)
+            stringBuilder.append("<li>Select master rule 3 or higher to play with pendulum zones</li>");
     }
 
-    private String createPuzzleMethod(DatosPuzzle datosPuzzle) {
+    private String generateLua(DatosPuzzle datosPuzzle) {
         return Lua_creator.createLua(datosPuzzle, puzzleCards);
     }
 
