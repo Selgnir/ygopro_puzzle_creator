@@ -22,6 +22,9 @@ class MainPanel extends AbstractPanel {
     @Inject
     private CartasService cartasService;
     private BusquedaFiltroPanel busquedaFiltroPanel;
+    private CampoPanel campoPanel;
+    private DatosPanel datosPanel;
+    private VistaCartaPanel vistaPanel;
     private ListModel<Card> listModel;
     private ListView<Card> listView;
     private WebMarkupContainer container;
@@ -38,17 +41,45 @@ class MainPanel extends AbstractPanel {
     }
 
     private void addPanels() {
-        CampoPanel campoPanel = new CampoPanel("fieldPanel");
-        DatosPanel datosPanel = new DatosPanel("dataPanel");
-        busquedaFiltroPanel = new BusquedaFiltroPanel("searchFilterPanel", (BusquedaFiltroPanel.Callback) ajaxRequestTarget -> {
+        campoPanel = new CampoMR4Panel("fieldPanel");
+        campoPanel.setOutputMarkupId(true);
+        add(campoPanel);
+
+        datosPanel = new DatosPanel("dataPanel", (OnChangeCallback) ajaxRequestTarget -> {
+            recargarCampo(datosPanel.getDatosPuzzle().getMasterRule());
+            campoPanel.cargar();
+            //otra opción es pasar ajaxRequestTarget por parámetro a campoPanel.cargar y que añada sólo el container
+            ajaxRequestTarget.add(campoPanel);
+        });
+        datosPanel.setOutputMarkupId(true);
+        add(datosPanel);
+
+        busquedaFiltroPanel = new BusquedaFiltroPanel("searchFilterPanel", (OnChangeCallback) ajaxRequestTarget -> {
             cargar();
             ajaxRequestTarget.add(container);
             ajaxRequestTarget.add(busquedaFiltroPanel);
         });
         busquedaFiltroPanel.setOutputMarkupId(true);
-        add(campoPanel);
-        add(datosPanel);
         add(busquedaFiltroPanel);
+
+        vistaPanel = new VistaCartaPanel("viewPanel");
+        vistaPanel.setOutputMarkupId(true);
+        add(vistaPanel);
+
+    }
+
+    private void recargarCampo(Integer masterRule) {
+        switch (masterRule){
+            case 1:
+            case 2:
+                campoPanel = new CampoMR1y2Panel("fieldPanel");
+                break;
+            case 3:
+                campoPanel = new CampoMR3Panel("fieldPanel");
+                break;
+            case 4:
+                campoPanel = new CampoMR4Panel("fieldPanel");
+        }
     }
 
     private void addCartas() {
@@ -65,6 +96,8 @@ class MainPanel extends AbstractPanel {
                     @Override
                     public void onClick(AjaxRequestTarget ajaxRequestTarget) {
                         ver(listItem.getModelObject());
+//                        instead of this, lets do vistaPanel.cargar(listItem.getModelObject());
+//                        ajaxRequestTarget.add(vistaPanel) y todos felices
                     }
                 });
             }

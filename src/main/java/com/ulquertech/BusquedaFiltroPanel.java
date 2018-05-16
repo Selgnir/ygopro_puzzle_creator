@@ -13,14 +13,10 @@ import java.io.Serializable;
 public class BusquedaFiltroPanel extends AbstractPanel {
     @Inject
     private NotifierProvider notifierProvider;
-    private final Callback callback;
+    private final OnChangeCallback callback;
     private CompoundPropertyModel<BusquedaFiltroData> model;
 
-    public interface Callback extends Serializable {
-        void onChanged(AjaxRequestTarget ajaxRequestTarget);
-    }
-
-    public BusquedaFiltroPanel(String id, Callback callback) {
+    public BusquedaFiltroPanel(String id, OnChangeCallback callback) {
         super(id);
         this.callback = callback;
         addComponents();

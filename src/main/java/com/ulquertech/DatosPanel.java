@@ -12,6 +12,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import plataforma1.wicket.semantic.NotifierProvider;
 
 import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.Arrays;
 
 public class DatosPanel extends AbstractPanel {
@@ -21,13 +22,11 @@ public class DatosPanel extends AbstractPanel {
     private PuzzleCardBuilder puzzleCardBuilder;
     private CompoundPropertyModel<DatosPuzzle> model;
     private DatosPuzzle datosPuzzle = new DatosPuzzle();
+    private OnChangeCallback callback;
 
-//    public interface Callback extends Serializable {
-//        void onChanged(AjaxRequestTarget ajaxRequestTarget);
-//    }
-
-    DatosPanel(String id) {
+    DatosPanel(String id, OnChangeCallback callback) {
         super(id);
+        this.callback = callback;
         addForm();
     }
 
@@ -71,6 +70,7 @@ public class DatosPanel extends AbstractPanel {
             protected void onUpdate(AjaxRequestTarget ajaxRequestTarget) {
                 StringBuilder stringBuilder = new StringBuilder();
                 puzzleCardBuilder.adaptToNewMasterRule(datosPuzzle.getMasterRule(), stringBuilder);
+                callback.onChanged(ajaxRequestTarget);
                 notificar(stringBuilder);
             }
         });
