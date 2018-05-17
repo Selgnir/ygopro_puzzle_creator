@@ -8,7 +8,6 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import plataforma1.wicket.semantic.NotifierProvider;
 
 import javax.inject.Inject;
-import java.io.Serializable;
 
 public class BusquedaFiltroPanel extends AbstractPanel {
     @Inject

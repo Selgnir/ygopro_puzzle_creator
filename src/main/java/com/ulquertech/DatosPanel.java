@@ -12,7 +12,6 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import plataforma1.wicket.semantic.NotifierProvider;
 
 import javax.inject.Inject;
-import java.io.Serializable;
 import java.util.Arrays;
 
 public class DatosPanel extends AbstractPanel {

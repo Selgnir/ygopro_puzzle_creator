@@ -48,7 +48,7 @@ class MainPanel extends AbstractPanel {
         datosPanel = new DatosPanel("dataPanel", (OnChangeCallback) ajaxRequestTarget -> {
             recargarCampo(datosPanel.getDatosPuzzle().getMasterRule());
             campoPanel.cargar();
-            //otra opción es pasar ajaxRequestTarget por parámetro a campoPanel.cargar y que añada sólo el container
+            //otra opción es pasar ajaxRequestTarget por parámetro a campoPanel.cargar y que añada el container
             ajaxRequestTarget.add(campoPanel);
         });
         datosPanel.setOutputMarkupId(true);
@@ -95,9 +95,8 @@ class MainPanel extends AbstractPanel {
                 listItem.add(new AjaxLink("view") {
                     @Override
                     public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-                        ver(listItem.getModelObject());
-//                        instead of this, lets do vistaPanel.cargar(listItem.getModelObject());
-//                        ajaxRequestTarget.add(vistaPanel) y todos felices
+                        vistaPanel.cargar(listItem.getModelObject());
+                        ajaxRequestTarget.add(vistaPanel);
                     }
                 });
             }
@@ -111,9 +110,6 @@ class MainPanel extends AbstractPanel {
             }
         };
         add(new Label("results", sizeModel));
-    }
-
-    private void ver(Card card) {
     }
 
 }

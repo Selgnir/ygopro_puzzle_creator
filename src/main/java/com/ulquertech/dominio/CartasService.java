@@ -83,186 +83,186 @@ public class CartasService {
     private void cardType(int type, Card card) {
         switch (type) {
             case 2:
-                card.setType("Normal Spell Card");
+                card.setType("[Spell]");
                 break;
             case 4:
-                card.setType("Normal Trap Card");
+                card.setType("[Trap]");
                 break;
             case 17:
-                card.setType("Normal Monster");
+                card.setType("[Normal Monster]");
                 card.setMonster(true);
                 break;
             case 33:
-                card.setType("Effect Monster");
+                card.setType("[Effect Monster]");
                 card.setMonster(true);
                 break;
             case 65:
-                card.setType("Fusion Monster");
+                card.setType("[Fusion Monster]");
                 card.setMonster(true);
                 break;
             case 97:
-                card.setType("Fusion/Effect Monster");
+                card.setType("[Fusion|Effect]");
                 card.setMonster(true);
                 break;
             case 129:
-                card.setType("Ritual Monster");
+                card.setType("[Ritual Monster]");
                 card.setMonster(true);
                 break;
             case 130:
-                card.setType("Ritual Spell");
+                card.setType("[Spell|Ritual]");
                 break;
             case 161:
-                card.setType("Ritual/Effect Monster");
+                card.setType("[Ritual|Effect]");
                 card.setMonster(true);
                 break;
             case 545:
-                card.setType("Spirit Monster");
+                card.setType("[Spirit Monster]");
                 card.setMonster(true);
                 break;
             case 1057:
-                card.setType("Union Monster");
+                card.setType("[Union Monster]");
                 card.setMonster(true);
                 break;
             case 2081:
-                card.setType("Gemini Monster");
+                card.setType("[Gemini Monster]");
                 card.setMonster(true);
                 break;
             case 4113:
-                card.setType("Tuner/Normal Monster");
+                card.setType("[Tuner|Normal]");
                 card.setMonster(true);
                 break;
             case 4129:
-                card.setType("Tuner/Effect Monster");
+                card.setType("[Tuner|Effect]");
                 card.setMonster(true);
                 break;
             case 8193:
-                card.setType("Synchro Monster");
+                card.setType("[Synchro Monster]");
                 card.setMonster(true);
                 break;
             case 8225:
-                card.setType("Synchro/Effect Monster");
+                card.setType("[Synchro|Effect]");
                 card.setMonster(true);
                 break;
             case 12321:
-                card.setType("Synchro/Tuner/Effect Monster");
+                card.setType("[Synchro|Tuner|Effect]");
                 card.setMonster(true);
                 break;
             case 16401:
-                card.setType("Token");
+                card.setType("[Token]");
                 card.setMonster(true);
                 break;
             case 65538:
-                card.setType("Quick-Play Spell Card");
+                card.setType("[Spell|Quick-Play]");
                 break;
             case 131074:
-                card.setType("Continuous Spell Card");
+                card.setType("[Spell|Continuous]");
                 break;
             case 131076:
-                card.setType("Continuous Trap Card");
+                card.setType("[Trap|Continuous]");
                 break;
             case 262146:
-                card.setType("Equip Spell Card");
+                card.setType("[Spell|Equip]");
                 break;
             case 524290:
-                card.setType("Field Spell Card");
+                card.setType("[Spell|Field]");
                 break;
             case 1048580:
-                card.setType("Counter Trap Card");
+                card.setType("[Trap|Counter]");
                 break;
             case 2097185:
-                card.setType("Flip Effect Monster");
+                card.setType("[Flip Effect Monster]");
                 card.setMonster(true);
                 break;
             case 4194337:
-                card.setType("Toon Monster");
+                card.setType("[Toon Monster]");
                 card.setMonster(true);
                 break;
             case 8388609:
-                card.setType("Xyz Monster");
+                card.setType("[Xyz Monster]");
                 card.setMonster(true);
                 break;
             case 8388641:
-                card.setType("Xyz/Effect Monster");
+                card.setType("[Xyz|Effect]");
                 card.setMonster(true);
                 break;
             case 16777233:
-                card.setType("Normal Pendulum");
+                card.setType("[Normal|Pendulum]");
                 card.setMonster(true);
                 break;
             case 16777249:
-                card.setType("Effect Pendulum");
+                card.setType("[Effect|Pendulum]");
                 card.setMonster(true);
                 break;
             case 16777280:
-                card.setType("Fusion Pendulum");
+                card.setType("[Fusion|Pendulum]");
                 card.setMonster(true);
                 break;
             case 16777312:
-                card.setType("Fusion Effect Pendulum");
+                card.setType("[Fusion|Effect|Pendulum]");
                 card.setMonster(true);
                 break;
             case 16777344:
-                card.setType("Ritual Pendulum");
+                card.setType("[Ritual|Pendulum]");
                 card.setMonster(true);
                 break;
             case 16777472:
-                card.setType("Ritual Effect Pendulum");
+                card.setType("[Ritual|Effect|Pendulum]");
                 card.setMonster(true);
                 break;
             case 16781329:
-                card.setType("Normal Tuner Pendulum");
+                card.setType("[Normal|Tuner|Pendulum]");
                 card.setMonster(true);
                 break;
             case 16781345:
-                card.setType("Effect Tuner Pendulum");
+                card.setType("[Effect|Tuner|Pendulum]");
                 card.setMonster(true);
                 break;
             case 16781376:
-                card.setType("Fusion Effect Tuner Pendulum");
+                card.setType("[Fusion|Effect|Tuner|Pendulum]");
                 card.setMonster(true);
                 break;
             case 16781408:
-                card.setType("Fusion Tuner Effect Pendulum");
+                card.setType("[Fusion|Tuner|Effect|Pendulum]");
                 card.setMonster(true);
                 break;
             case 16781568:
-                card.setType("Ritual Tuner Effect Pendulum");
+                card.setType("[Ritual|Tuner|Effect|Pendulum]");
                 card.setMonster(true);
                 break;
             case 16785408:
-                card.setType("Synchro Pendulum");
+                card.setType("[Synchro|Pendulum]");
                 card.setMonster(true);
                 break;
             case 16785441:
-                card.setType("Synchro Effect Pendulum");
+                card.setType("[Synchro|Effect|Pendulum]");
                 card.setMonster(true);
                 break;
             case 16789504:
-                card.setType("Synchro Tuner Pendulum");
+                card.setType("[Synchro|Tuner|Pendulum]");
                 card.setMonster(true);
                 break;
             case 16789536:
-                card.setType("Synchro Effect Tuner Pendulum");
+                card.setType("[Synchro|Effect|Tuner|Pendulum]");
                 card.setMonster(true);
                 break;
             case 25165825:
-                card.setType("Xyz Pendulum");
+                card.setType("[Xyz|Pendulum]");
                 card.setMonster(true);
                 break;
             case 25165857:
-                card.setType("Xyz Pendulum Effect");
+                card.setType("[Xyz|Pendulum|Effect]");
                 card.setMonster(true);
                 break;
             case 67108865:
-                card.setType("Link/Normal");
+                card.setType("|Link|Normal]");
                 card.setMonster(true);
                 break;
             case 67108897:
-                card.setType("Link/Effect");
+                card.setType("[Link|Effect]");
                 card.setMonster(true);
                 break;
             default:
-                card.setType("Unknown Card Type");
+                card.setType("[Unknown Card Type]");
         }
     }
 
