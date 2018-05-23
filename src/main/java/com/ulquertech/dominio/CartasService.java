@@ -352,7 +352,7 @@ public class CartasService {
 
     private List<String> linkMarker(Integer arrows) {
         List<String> links = new ArrayList<>();
-        List<String> orientations = Arrays.asList("N", "NE", "E", "NW", "W", "SE", "S", "SW"); //"[&#8593;]", "[&#8599;]", "[&#8594;]", "[&#8598;]", "[&#8592;]", "[&#8600;]", "[&#8595;]", "[&#8601;]" //TODO: Poner el html en la ui, y no con el código
+        List<String> orientations = Arrays.asList("N", "NE", "E", "NW", "W", "SE", "S", "SW");
         List<Integer> markers = Arrays.asList(128, 64, 32, 16, 8, 4, 2, 1);
         for (int i = 0; i < markers.size(); i++) {
             if (arrows >= markers.get(i)) {
