@@ -48,6 +48,7 @@ class MainPanel extends AbstractPanel {
         datosPanel = new DatosPanel("dataPanel", (OnChangeCallback) ajaxRequestTarget -> {
             recargarCampo(datosPanel.getDatosPuzzle().getMasterRule());
             campoPanel.cargar();
+            vistaPanel.cargar(datosPanel.getDatosPuzzle().getMasterRule(), ajaxRequestTarget);
             //otra opción es pasar ajaxRequestTarget por parámetro a campoPanel.cargar y que añada el container
             ajaxRequestTarget.add(campoPanel);
         });
@@ -62,7 +63,14 @@ class MainPanel extends AbstractPanel {
         busquedaFiltroPanel.setOutputMarkupId(true);
         add(busquedaFiltroPanel);
 
-        vistaPanel = new VistaCartaPanel("viewPanel");
+        vistaPanel = new VistaCartaPanel("viewPanel", (OnAddCardCallback) (ajaxRequestTarget, stringBuilder) -> {
+            if (notificar(stringBuilder)) {
+                recargarCampo(datosPanel.getDatosPuzzle().getMasterRule());
+                campoPanel.cargar();
+                //otra opción es pasar ajaxRequestTarget por parámetro a campoPanel.cargar y que añada el container
+                ajaxRequestTarget.add(campoPanel);
+            }
+        });
         vistaPanel.setOutputMarkupId(true);
         add(vistaPanel);
 
@@ -110,6 +118,15 @@ class MainPanel extends AbstractPanel {
             }
         };
         add(new Label("results", sizeModel));
+    }
+
+    private Boolean notificar(StringBuilder stringBuilder) {
+        if (stringBuilder.length() > 0) {
+            notifierProvider.getNotifier(getPage()).notify("Error", "<ul>" + stringBuilder.toString() + "</ul>");
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }

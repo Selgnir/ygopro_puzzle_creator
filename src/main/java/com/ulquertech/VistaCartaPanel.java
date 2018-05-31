@@ -1,7 +1,15 @@
 package com.ulquertech;
 
+import com.googlecode.wicket.jquery.ui.widget.menu.ContextMenu;
+import com.googlecode.wicket.jquery.ui.widget.menu.ContextMenuBehavior;
+import com.googlecode.wicket.jquery.ui.widget.menu.IMenuItem;
+import com.googlecode.wicket.jquery.ui.widget.menu.MenuItem;
 import com.ulquertech.dominio.Card;
+import com.ulquertech.dominio.PuzzleCard;
 import com.ulquertech.dominio.PuzzleCardBuilder;
+import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.Component;
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.image.Image;
@@ -10,7 +18,9 @@ import org.apache.wicket.request.resource.PackageResourceReference;
 import plataforma1.wicket.semantic.NotifierProvider;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class VistaCartaPanel extends AbstractPanel {
@@ -21,21 +31,31 @@ public class VistaCartaPanel extends AbstractPanel {
     private WebMarkupContainer container;
     private TextArea descriptionArea;
     private Image cardView;
+    private ContextMenuBehavior menu;
     private Model<String> model;
-    private OnChangeCallback callback;
+    private OnAddCardCallback callback;
     private Card cardOnPreview;
+    private Integer masterRule = 4;
+    private List<IMenuItem> pendulumMenus = new ArrayList<>();
+    private List<IMenuItem> extraMZMenus = new ArrayList<>();
 
 
-    VistaCartaPanel(String id, OnChangeCallback callback) {
+    VistaCartaPanel(String id, OnAddCardCallback callback) {
         super(id);
         this.callback = callback;
         addContainer();
+        addVista();
+        addContextMenu();
     }
 
     private void addContainer() {
-        model = new Model<>("");
         container = new WebMarkupContainer("container");
         container.setOutputMarkupId(true);
+        add(container);
+    }
+
+    private void addVista() {
+        model = new Model<>("");
 
         PackageResourceReference resourceReference = new PackageResourceReference(getClass(), "unknown.jpg");
         cardView = new Image("cardView", resourceReference);
@@ -45,6 +65,101 @@ public class VistaCartaPanel extends AbstractPanel {
         descriptionArea = new TextArea<>("cardText", model);
         descriptionArea.setEnabled(false);
         descriptionArea.setOutputMarkupId(true);
+        container.add(descriptionArea);
+    }
+
+    private void addContextMenu() {
+        List<IMenuItem> list = new ArrayList<>();
+        list.add(menuItem(0));
+        list.add(menuItem(1));
+        ContextMenu menu = new ContextMenu("menu", list);
+        cardView.add(new ContextMenuBehavior(menu));
+    }
+
+    private IMenuItem menuItem(Integer user) {
+        MenuItem userMenu = new MenuItem(user == 0 ? "Add to your" : "Add to opponent's");
+
+
+        userMenu.addItem(new CardMenuItem("Hand"));
+        userMenu.addItem(new CardMenuItem("Deck"));
+
+
+        MenuItem usExtraDeckMenu = new MenuItem("Extra deck as");
+        usExtraDeckMenu.addItem(new CardMenuItem("Extra deck monster"));
+        if (masterRule >= 4) {
+            usExtraDeckMenu.addItem(new CardMenuItem("Pendulum monster"));
+        }
+        userMenu.addItem(usExtraDeckMenu);
+
+
+        userMenu.addItem(new CardMenuItem("Graveyard"));
+        userMenu.addItem(new CardMenuItem("Banished"));
+
+
+        MenuItem usMonsterMenu = new MenuItem("Monster zone");
+
+        MenuItem usMAtkMenu = new MenuItem("In attack position");
+        usMAtkMenu.addItem(new CardMenuItem("1"));
+        usMAtkMenu.addItem(new CardMenuItem("2"));
+        usMAtkMenu.addItem(new CardMenuItem("3"));
+        usMAtkMenu.addItem(new CardMenuItem("4"));
+        usMAtkMenu.addItem(new CardMenuItem("5"));
+        usMonsterMenu.addItem(usMAtkMenu);
+
+        MenuItem usMDefMenu = new MenuItem("In defense position");
+        usMDefMenu.addItem(new CardMenuItem("1"));
+        usMDefMenu.addItem(new CardMenuItem("2"));
+        usMDefMenu.addItem(new CardMenuItem("3"));
+        usMDefMenu.addItem(new CardMenuItem("4"));
+        usMDefMenu.addItem(new CardMenuItem("5"));
+        usMonsterMenu.addItem(usMDefMenu);
+
+        MenuItem usMFaceDownMenu = new MenuItem("Face-down");
+        usMFaceDownMenu.addItem(new CardMenuItem("1"));
+        usMFaceDownMenu.addItem(new CardMenuItem("2"));
+        usMFaceDownMenu.addItem(new CardMenuItem("3"));
+        usMFaceDownMenu.addItem(new CardMenuItem("4"));
+        usMFaceDownMenu.addItem(new CardMenuItem("5"));
+        usMonsterMenu.addItem(usMFaceDownMenu);
+
+        if (masterRule >= 4) {
+            MenuItem usMExtraMZMenu = new MenuItem("In extra monster zone");
+            usMExtraMZMenu.addItem(new CardMenuItem("Left (6)"));
+            usMExtraMZMenu.addItem(new CardMenuItem("Right (7)"));
+            usMonsterMenu.addItem(usMExtraMZMenu);
+        }
+
+        MenuItem usMXYZMenu = new MenuItem("Face-down");
+        usMXYZMenu.addItem(new CardMenuItem("1"));
+        usMXYZMenu.addItem(new CardMenuItem("2"));
+        usMXYZMenu.addItem(new CardMenuItem("3"));
+        usMXYZMenu.addItem(new CardMenuItem("4"));
+        usMXYZMenu.addItem(new CardMenuItem("5"));
+        usMXYZMenu.addItem(new CardMenuItem("6"));
+        usMXYZMenu.addItem(new CardMenuItem("7"));
+        usMonsterMenu.addItem(usMXYZMenu);
+
+        userMenu.addItem(usMonsterMenu);
+
+
+        MenuItem usSpellTrapMenu = new MenuItem("Spell/Trap zone");
+        usSpellTrapMenu.addItem(new CardMenuItem("1"));
+        usSpellTrapMenu.addItem(new CardMenuItem("2"));
+        usSpellTrapMenu.addItem(new CardMenuItem("3"));
+        usSpellTrapMenu.addItem(new CardMenuItem("4"));
+        usSpellTrapMenu.addItem(new CardMenuItem("5"));
+        usSpellTrapMenu.addItem(new CardMenuItem("As field spell"));
+        userMenu.addItem(usSpellTrapMenu);
+
+
+        if (masterRule >= 3) {
+            MenuItem usPendulumScalesMenu = new MenuItem("Pendulum scale");
+            usPendulumScalesMenu.addItem(new CardMenuItem("Left"));
+            usPendulumScalesMenu.addItem(new CardMenuItem("Right"));
+            userMenu.addItem(usPendulumScalesMenu);
+        }
+
+        return userMenu;
     }
 
     public void cargar(Card card) {
@@ -105,5 +220,37 @@ public class VistaCartaPanel extends AbstractPanel {
         mapa.put("S","[&#8595;]");
         mapa.put("SW","[&#8601;]");
         return mapa;
+    }
+
+    public void cargar(Integer masterRule, AjaxRequestTarget target) {
+        this.masterRule = masterRule;
+        menu = new ContextMenuBehavior(new ContextMenu("menu", menuItemsList()));
+        target.add(cardView);
+        target.add(descriptionArea);
+    }
+
+    public class CardMenuItem extends MenuItem {
+        private Integer idCard;
+        private Integer user;
+        private Integer zone;
+        private String location;
+        private String position;
+
+        public CardMenuItem(String title, Integer id, Integer us, Integer zn, String loc, String pos) {
+            super(title);
+            idCard = id;
+            user = us;
+            zone = zn;
+            location = loc;
+            position = pos;
+        }
+
+        @Override
+        public void onClick(AjaxRequestTarget target) {
+            StringBuilder stringBuilder = new StringBuilder();
+            PuzzleCard puzzleCard = puzzleCardBuilder.createPuzzleCard(idCard, user, zone, location, position);
+            puzzleCardBuilder.addCard(puzzleCard, masterRule, stringBuilder);
+            callback.onAddCard(target, stringBuilder);
+        }
     }
 }

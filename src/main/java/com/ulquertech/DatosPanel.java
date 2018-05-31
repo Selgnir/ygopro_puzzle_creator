@@ -105,7 +105,6 @@ public class DatosPanel extends AbstractPanel {
             notifierProvider.getNotifier(getPage()).notify("Error", "<ul>" + stringBuilder.toString() + "</ul>");
             return false;
         } else {
-            notifierProvider.getNotifier(getPage()).notify("OK", "");
             return true;
         }
     }

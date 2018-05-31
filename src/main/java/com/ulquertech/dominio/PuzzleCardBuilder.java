@@ -105,7 +105,7 @@ public class PuzzleCardBuilder implements Serializable {
         return null;
     }
 
-    private PuzzleCard createPuzzleCard(Integer id, Integer user, Integer zone, String location, String position) {
+    public PuzzleCard createPuzzleCard(Integer id, Integer user, Integer zone, String location, String position) {
         return new PuzzleCard(id, user, zone, location, position);
     }
 
