@@ -128,7 +128,6 @@ public class PuzzleCardBuilder implements Serializable {
                 addToOverlay(card, stringBuilder);
                 break;
             default:
-                card.setZone(0);
                 puzzleCards.add(card);
                 break;
         }
@@ -188,28 +187,25 @@ public class PuzzleCardBuilder implements Serializable {
 
     private void addToPendulumZONE(PuzzleCard card, StringBuilder stringBuilder, Integer masterRule) {
         Map<Integer, Boolean> map;
-        Integer secZone;
-        if (masterRule == 4) {
+        if (masterRule >= 4) {
             card.setLocation("LOCATION_SZONE");
-            secZone = 4;
-        } else if (masterRule == 3) {
-            card.setLocation("LOCATION_PZONE");
-            secZone = 2;
-        } else if (!stringBuilder.toString().contains("<li>Select master rule 3 or higher to play with pendulum zones</li>")){
-            stringBuilder.append("<li>Select master rule 3 or higher to play with pendulum zones</li>");
-            return;
-        } else {
+            if (card.getZone() == 1) {
+                card.setZone(4);
+            }
+        } else if (masterRule < 3) {
+            if (!stringBuilder.toString().contains("<li>Select master rule 3 or higher to play with pendulum zones</li>")){
+                stringBuilder.append("<li>Select master rule 3 or higher to play with pendulum zones</li>");
+                return;
+            }
             return;
         }
         map = getMapa(card.getUser(), card.getLocation());
 
-//        card.setZone(!map.get(0) ? 0 : (!map.get(secZone) ? secZone : null));
-        if (!map.get(0)) {
-            card.setZone(0);
-        } else if (!map.get(secZone)) {
-            card.setZone(secZone);
-        } else if (!stringBuilder.toString().contains("<li>Both pendulum zones are ocupied</li>")){
-            stringBuilder.append("<li>Both pendulum zones are ocupied</li>");
+        if (map.get(card.getZone())) {
+            if (!stringBuilder.toString().contains("<li>The selected pendulum zone is ocupied</li>")){
+                stringBuilder.append("<li>The selected pendulum zone is ocupied</li>");
+                return;
+            }
             return;
         }
 
@@ -219,11 +215,10 @@ public class PuzzleCardBuilder implements Serializable {
 
     private void addToExtraMonsterZone(PuzzleCard card, StringBuilder stringBuilder, Integer masterRule) {
         Map<Integer, Boolean> map;
-        if (masterRule == 4) {
+        if (masterRule >= 4) {
             card.setLocation("LOCATION_MZONE");
             map = getMapa(card.getUser(), card.getLocation());
             if (!map.get(card.getZone())) {
-                card.setPosition("POS_FACEUP_ATTACK");
                 puzzleCards.add(card);
                 map.put(card.getZone(), true);
             } else {
@@ -238,11 +233,10 @@ public class PuzzleCardBuilder implements Serializable {
         card.setLocation("LOCATION_SZONE");
         Map<Integer, Boolean> map = getMapa(card.getUser(), card.getLocation());
         if (!map.get(5)) {
-            card.setZone(5);
             puzzleCards.add(card);
             map.put(card.getZone(), true);
         } else {
-            stringBuilder.append("<li>The selected field spell zone is ocupied</li>");
+            stringBuilder.append("<li>This player's field spell zone is ocupied</li>");
         }
     }
 
@@ -329,7 +323,7 @@ public class PuzzleCardBuilder implements Serializable {
             stringBuilder.append("<li>Select master rule 3 or higher to play with pendulum zones</li>");
     }
 
-    private String generateLua(DatosPuzzle datosPuzzle) {
+    public String generateLua(DatosPuzzle datosPuzzle) {
         return Lua_creator.createLua(datosPuzzle, puzzleCards);
     }
 

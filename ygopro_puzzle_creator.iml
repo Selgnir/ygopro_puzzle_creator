@@ -46,7 +46,8 @@
     <orderEntry type="library" name="Maven: gabriel-lib:plataforma:1" level="project" />
     <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" name="Maven: wicket-lib:wicket-extensions:6.27.1" level="project" />
-    <orderEntry type="library" name="Maven: com.googlecode.wicket-jquery-ui:wicket-jquery-ui:8.0.0-M9" level="project" />
-    <orderEntry type="library" name="Maven: com.googlecode.wicket-jquery-ui:wicket-jquery-ui-core:8.0.0-M9" level="project" />
+    <orderEntry type="library" name="Maven: com.googlecode.wicket-jquery-ui:wicket-jquery-ui:6.28.0" level="project" />
+    <orderEntry type="library" name="Maven: com.googlecode.wicket-jquery-ui:wicket-jquery-ui-core:6.28.0" level="project" />
+    <orderEntry type="library" name="Maven: org.threeten:threetenbp:1.3.1" level="project" />
   </component>
 </module>

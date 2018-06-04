@@ -7,8 +7,6 @@ import com.googlecode.wicket.jquery.ui.widget.menu.MenuItem;
 import com.ulquertech.dominio.Card;
 import com.ulquertech.dominio.PuzzleCard;
 import com.ulquertech.dominio.PuzzleCardBuilder;
-import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.TextArea;
@@ -70,92 +68,115 @@ public class VistaCartaPanel extends AbstractPanel {
 
     private void addContextMenu() {
         List<IMenuItem> list = new ArrayList<>();
-        list.add(menuItem(0));
-        list.add(menuItem(1));
-        ContextMenu menu = new ContextMenu("menu", list);
-        cardView.add(new ContextMenuBehavior(menu));
+        list.add(menuItemsFor(0));
+        list.add(menuItemsFor(1));
+        menu = new ContextMenuBehavior(new ContextMenu("menu", list));
+        cardView.add(menu);
     }
 
-    private IMenuItem menuItem(Integer user) {
+    private IMenuItem menuItemsFor(Integer user) {
         MenuItem userMenu = new MenuItem(user == 0 ? "Add to your" : "Add to opponent's");
 
 
-        userMenu.addItem(new CardMenuItem("Hand"));
-        userMenu.addItem(new CardMenuItem("Deck"));
+        userMenu.addItem(new CardMenuItem("Hand", cardOnPreview.getId(), user, 0, "LOCATION_HAND", "POS_FACEDOWN"));
+        userMenu.addItem(new CardMenuItem("Deck", cardOnPreview.getId(), user, 0, "LOCATION_DECK", "POS_FACEDOWN"));
 
 
         MenuItem usExtraDeckMenu = new MenuItem("Extra deck as");
-        usExtraDeckMenu.addItem(new CardMenuItem("Extra deck monster"));
-        if (masterRule >= 4) {
-            usExtraDeckMenu.addItem(new CardMenuItem("Pendulum monster"));
+        usExtraDeckMenu.addItem(new CardMenuItem("Extra deck monster", cardOnPreview.getId(), user, 0, "LOCATION_EXTRA", "POS_FACEDOWN"));
+        if (masterRule >= 3) {
+            usExtraDeckMenu.addItem(new CardMenuItem("Pendulum monster", cardOnPreview.getId(), user, 0, "LOCATION_EXTRA", "POS_FACEUP"));
         }
         userMenu.addItem(usExtraDeckMenu);
 
 
-        userMenu.addItem(new CardMenuItem("Graveyard"));
-        userMenu.addItem(new CardMenuItem("Banished"));
+        userMenu.addItem(new CardMenuItem("Graveyard", cardOnPreview.getId(), user, 0, "LOCATION_GRAVE", "POS_FACEDOWN"));
+        userMenu.addItem(new CardMenuItem("Banished", cardOnPreview.getId(), user, 0, "LOCATION_REMOVED", "POS_FACEDOWN"));
 
 
         MenuItem usMonsterMenu = new MenuItem("Monster zone");
 
         MenuItem usMAtkMenu = new MenuItem("In attack position");
-        usMAtkMenu.addItem(new CardMenuItem("1"));
-        usMAtkMenu.addItem(new CardMenuItem("2"));
-        usMAtkMenu.addItem(new CardMenuItem("3"));
-        usMAtkMenu.addItem(new CardMenuItem("4"));
-        usMAtkMenu.addItem(new CardMenuItem("5"));
+        usMAtkMenu.addItem(new CardMenuItem("1", cardOnPreview.getId(), user, 0, "LOCATION_MZONE", "POS_FACEUP_ATTACK"));
+        usMAtkMenu.addItem(new CardMenuItem("2", cardOnPreview.getId(), user, 1, "LOCATION_MZONE", "POS_FACEUP_ATTACK"));
+        usMAtkMenu.addItem(new CardMenuItem("3", cardOnPreview.getId(), user, 2, "LOCATION_MZONE", "POS_FACEUP_ATTACK"));
+        usMAtkMenu.addItem(new CardMenuItem("4", cardOnPreview.getId(), user, 3, "LOCATION_MZONE", "POS_FACEUP_ATTACK"));
+        usMAtkMenu.addItem(new CardMenuItem("5", cardOnPreview.getId(), user, 4, "LOCATION_MZONE", "POS_FACEUP_ATTACK"));
         usMonsterMenu.addItem(usMAtkMenu);
 
         MenuItem usMDefMenu = new MenuItem("In defense position");
-        usMDefMenu.addItem(new CardMenuItem("1"));
-        usMDefMenu.addItem(new CardMenuItem("2"));
-        usMDefMenu.addItem(new CardMenuItem("3"));
-        usMDefMenu.addItem(new CardMenuItem("4"));
-        usMDefMenu.addItem(new CardMenuItem("5"));
+        usMDefMenu.addItem(new CardMenuItem("1", cardOnPreview.getId(), user, 0, "LOCATION_MZONE", "POS_FACEUP_DEFENCE"));
+        usMDefMenu.addItem(new CardMenuItem("2", cardOnPreview.getId(), user, 1, "LOCATION_MZONE", "POS_FACEUP_DEFENCE"));
+        usMDefMenu.addItem(new CardMenuItem("3", cardOnPreview.getId(), user, 2, "LOCATION_MZONE", "POS_FACEUP_DEFENCE"));
+        usMDefMenu.addItem(new CardMenuItem("4", cardOnPreview.getId(), user, 3, "LOCATION_MZONE", "POS_FACEUP_DEFENCE"));
+        usMDefMenu.addItem(new CardMenuItem("5", cardOnPreview.getId(), user, 4, "LOCATION_MZONE", "POS_FACEUP_DEFENCE"));
         usMonsterMenu.addItem(usMDefMenu);
 
         MenuItem usMFaceDownMenu = new MenuItem("Face-down");
-        usMFaceDownMenu.addItem(new CardMenuItem("1"));
-        usMFaceDownMenu.addItem(new CardMenuItem("2"));
-        usMFaceDownMenu.addItem(new CardMenuItem("3"));
-        usMFaceDownMenu.addItem(new CardMenuItem("4"));
-        usMFaceDownMenu.addItem(new CardMenuItem("5"));
+        usMFaceDownMenu.addItem(new CardMenuItem("1", cardOnPreview.getId(), user, 0, "LOCATION_MZONE", "POS_FACEDOWN_DEFENCE"));
+        usMFaceDownMenu.addItem(new CardMenuItem("2", cardOnPreview.getId(), user, 1, "LOCATION_MZONE", "POS_FACEDOWN_DEFENCE"));
+        usMFaceDownMenu.addItem(new CardMenuItem("3", cardOnPreview.getId(), user, 2, "LOCATION_MZONE", "POS_FACEDOWN_DEFENCE"));
+        usMFaceDownMenu.addItem(new CardMenuItem("4", cardOnPreview.getId(), user, 3, "LOCATION_MZONE", "POS_FACEDOWN_DEFENCE"));
+        usMFaceDownMenu.addItem(new CardMenuItem("5", cardOnPreview.getId(), user, 4, "LOCATION_MZONE", "POS_FACEDOWN_DEFENCE"));
         usMonsterMenu.addItem(usMFaceDownMenu);
 
         if (masterRule >= 4) {
             MenuItem usMExtraMZMenu = new MenuItem("In extra monster zone");
-            usMExtraMZMenu.addItem(new CardMenuItem("Left (6)"));
-            usMExtraMZMenu.addItem(new CardMenuItem("Right (7)"));
+            usMExtraMZMenu.addItem(new CardMenuItem("Left", cardOnPreview.getId(), user, 5, "LOCATION_EXTRAM", "POS_FACEUP_ATTACK"));
+            usMExtraMZMenu.addItem(new CardMenuItem("Right", cardOnPreview.getId(), user, 6, "LOCATION_EXTRAM", "POS_FACEUP_ATTACK"));
             usMonsterMenu.addItem(usMExtraMZMenu);
         }
 
-        MenuItem usMXYZMenu = new MenuItem("Face-down");
-        usMXYZMenu.addItem(new CardMenuItem("1"));
-        usMXYZMenu.addItem(new CardMenuItem("2"));
-        usMXYZMenu.addItem(new CardMenuItem("3"));
-        usMXYZMenu.addItem(new CardMenuItem("4"));
-        usMXYZMenu.addItem(new CardMenuItem("5"));
-        usMXYZMenu.addItem(new CardMenuItem("6"));
-        usMXYZMenu.addItem(new CardMenuItem("7"));
+        MenuItem usMXYZMenu = new MenuItem("As overlay unit");
+        usMXYZMenu.addItem(new CardMenuItem("1", cardOnPreview.getId(), user, 0, "LOCATION_OVERLAY", "POS_FACEUP"));
+        usMXYZMenu.addItem(new CardMenuItem("2", cardOnPreview.getId(), user, 1, "LOCATION_OVERLAY", "POS_FACEUP"));
+        usMXYZMenu.addItem(new CardMenuItem("3", cardOnPreview.getId(), user, 2, "LOCATION_OVERLAY", "POS_FACEUP"));
+        usMXYZMenu.addItem(new CardMenuItem("4", cardOnPreview.getId(), user, 3, "LOCATION_OVERLAY", "POS_FACEUP"));
+        usMXYZMenu.addItem(new CardMenuItem("5", cardOnPreview.getId(), user, 4, "LOCATION_OVERLAY", "POS_FACEUP"));
+        if (masterRule >= 4) {
+            usMXYZMenu.addItem(new CardMenuItem("Extra monster zone left", cardOnPreview.getId(), user, 5, "LOCATION_OVERLAY", "POS_FACEUP"));
+            usMXYZMenu.addItem(new CardMenuItem("Extra monster zone right", cardOnPreview.getId(), user, 6, "LOCATION_OVERLAY", "POS_FACEUP"));
+        }
         usMonsterMenu.addItem(usMXYZMenu);
 
         userMenu.addItem(usMonsterMenu);
 
 
         MenuItem usSpellTrapMenu = new MenuItem("Spell/Trap zone");
-        usSpellTrapMenu.addItem(new CardMenuItem("1"));
-        usSpellTrapMenu.addItem(new CardMenuItem("2"));
-        usSpellTrapMenu.addItem(new CardMenuItem("3"));
-        usSpellTrapMenu.addItem(new CardMenuItem("4"));
-        usSpellTrapMenu.addItem(new CardMenuItem("5"));
-        usSpellTrapMenu.addItem(new CardMenuItem("As field spell"));
+
+        MenuItem usSTFaceUPMenu = new MenuItem("Face-up");
+        usSTFaceUPMenu.addItem(new CardMenuItem("1", cardOnPreview.getId(), user, 0, "LOCATION_SZONE", "POS_FACEUP"));
+        usSTFaceUPMenu.addItem(new CardMenuItem("2", cardOnPreview.getId(), user, 1, "LOCATION_SZONE", "POS_FACEUP"));
+        usSTFaceUPMenu.addItem(new CardMenuItem("3", cardOnPreview.getId(), user, 2, "LOCATION_SZONE", "POS_FACEUP"));
+        usSTFaceUPMenu.addItem(new CardMenuItem("4", cardOnPreview.getId(), user, 3, "LOCATION_SZONE", "POS_FACEUP"));
+        usSTFaceUPMenu.addItem(new CardMenuItem("5", cardOnPreview.getId(), user, 4, "LOCATION_SZONE", "POS_FACEUP"));
+        usSTFaceUPMenu.addItem(new CardMenuItem("As field spell", cardOnPreview.getId(), user, 5, "LOCATION_FSPELL", "POS_FACEUP"));
+        usSpellTrapMenu.addItem(usSTFaceUPMenu);
+
+        MenuItem usSTFaceDownMenu = new MenuItem("Face-down");
+        usSTFaceDownMenu.addItem(new CardMenuItem("1", cardOnPreview.getId(), user, 0, "LOCATION_SZONE", "POS_FACEDOWN"));
+        usSTFaceDownMenu.addItem(new CardMenuItem("2", cardOnPreview.getId(), user, 1, "LOCATION_SZONE", "POS_FACEDOWN"));
+        usSTFaceDownMenu.addItem(new CardMenuItem("3", cardOnPreview.getId(), user, 2, "LOCATION_SZONE", "POS_FACEDOWN"));
+        usSTFaceDownMenu.addItem(new CardMenuItem("4", cardOnPreview.getId(), user, 3, "LOCATION_SZONE", "POS_FACEDOWN"));
+        usSTFaceDownMenu.addItem(new CardMenuItem("5", cardOnPreview.getId(), user, 4, "LOCATION_SZONE", "POS_FACEDOWN"));
+        usSTFaceDownMenu.addItem(new CardMenuItem("As field spell", cardOnPreview.getId(), user, 5, "LOCATION_FSPELL", "POS_FACEDOWN"));
+        usSpellTrapMenu.addItem(usSTFaceDownMenu);
+
         userMenu.addItem(usSpellTrapMenu);
 
 
         if (masterRule >= 3) {
             MenuItem usPendulumScalesMenu = new MenuItem("Pendulum scale");
-            usPendulumScalesMenu.addItem(new CardMenuItem("Left"));
-            usPendulumScalesMenu.addItem(new CardMenuItem("Right"));
+
+            MenuItem usPSFaceUpMenu = new MenuItem("Face-up");
+            usPSFaceUpMenu.addItem(new CardMenuItem("Left", cardOnPreview.getId(), user, 0, "LOCATION_PZONE", "POS_FACEUP"));
+            usPSFaceUpMenu.addItem(new CardMenuItem("Right", cardOnPreview.getId(), user, 1, "LOCATION_PZONE", "POS_FACEUP"));
+            usPendulumScalesMenu.addItem(usPSFaceUpMenu);
+
+            MenuItem usPSFaceDownMenu = new MenuItem("Face-down");
+            usPSFaceDownMenu.addItem(new CardMenuItem("Left", cardOnPreview.getId(), user, 0, "LOCATION_PZONE", "POS_FACEDOWN"));
+            usPSFaceDownMenu.addItem(new CardMenuItem("Right", cardOnPreview.getId(), user, 1, "LOCATION_PZONE", "POS_FACEDOWN"));
+            usPendulumScalesMenu.addItem(usPSFaceDownMenu);
             userMenu.addItem(usPendulumScalesMenu);
         }
 
@@ -224,9 +245,9 @@ public class VistaCartaPanel extends AbstractPanel {
 
     public void cargar(Integer masterRule, AjaxRequestTarget target) {
         this.masterRule = masterRule;
-        menu = new ContextMenuBehavior(new ContextMenu("menu", menuItemsList()));
+        cardView.remove(menu);
+        addContextMenu();
         target.add(cardView);
-        target.add(descriptionArea);
     }
 
     public class CardMenuItem extends MenuItem {

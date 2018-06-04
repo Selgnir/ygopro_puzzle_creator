@@ -122,7 +122,7 @@
         <dependency>
             <groupId>com.googlecode.wicket-jquery-ui</groupId>
             <artifactId>wicket-jquery-ui</artifactId>
-            <version>8.0.0-M9</version>
+            <version>6.28.0</version>
         </dependency>
 
     </dependencies>
