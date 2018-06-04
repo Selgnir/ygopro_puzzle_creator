@@ -29,7 +29,7 @@ public class HomePage extends WebPage {
         AjaxLink newLink = new AjaxLink("nuevo") {
             @Override
             public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-                limpiar();
+                nuevo();
             }
         };
         add(newLink);
@@ -47,19 +47,28 @@ public class HomePage extends WebPage {
             }
         };
         add(saveLink);
+        AjaxLink cleanLink = new AjaxLink("limpiar") {
+            @Override
+            public void onClick(AjaxRequestTarget ajaxRequestTarget) {
+                limpiar();
+            }
+        };
+        add(cleanLink);
     }
 
-    private void limpiar() {
+
+    private void nuevo() {
         //ConfirmacionPanel con opciones Si, No, Cancelar, en su callback
         //TODO: revisar si hay cartas en el puzzle, y preguntar si desea guardar el puzzle actual (usar un ConfirmationPanel, para que me retorne las acciones a realizar en este panel)
-        //TODO: resetear el panel de datos, limpiar el campo, vaciar la lista de cartas en el puzzle
-        //TODO: cerrar el archivo abierto, si alguno
+        //TODO: Ok: llamar a guardar y cerrar el archivo abierto (si alguno), resetear el panel de datos, limpiar el campo, y vaciar la lista de cartas en el puzzle
+        //TODO: No: resetear el panel de datos, limpiar el campo, y vaciar la lista de cartas en el puzzle
+        //TODO: Cancel: cierra el modal y no hace nada
     }
 
     private void abrir() {
         //ConfirmacionPanel con opciones Si, No, Cancelar, en su callback
         //TODO: revisar si hay cartas en el puzzle, y preguntar si desea guardar el puzzle actual (usar un ConfirmationPanel, para que me retorne las acciones a realizar en este panel)
-        //TODO: Ok: llamar a guardar y abrir el diálogo de selección (cargar un archivo, implica limpiar y reemplazar todo con sus datos).
+        //TODO: Ok: llamar a guardar y cerrar el archivo abierto (si alguno), y abrir el diálogo de selección (cargar un archivo, implica limpiar y reemplazar todo con sus datos).
         //TODO: No: sólo abrir el diálogo de selección
         //TODO: Cancel: cancela
 
@@ -67,9 +76,16 @@ public class HomePage extends WebPage {
     }
 
     private void guardar() {
+        //ConfirmacionPanel con opciones Si, Cancelar, en su callback
         //TODO: guardar los datos ingresados en un archivo nuevo, o en el abierto, si alguno
-        //TODO: por si acaso que pregunte si desea sobreescribir el archivo, si existe
+        //TODO: preguntar si desea sobreescribir el archivo, si existe
         //TODO: informar si se guardó correctamente
+    }
+
+    private void limpiar() {
+        //ConfirmacionPanel con opciones Si, Cancelar, en su callback
+        //TODO: revisar si hay cartas en el puzzle, y preguntar si está seguro de que quiere limpiar el puzzle actual (usar un ConfirmationPanel, para que me retorne las acciones a realizar en este panel)
+        //TODO: resetear el panel de datos, limpiar el campo, vaciar la lista de cartas en el puzzle
     }
 
     public NotifierProvider getNotifierProvider() {
