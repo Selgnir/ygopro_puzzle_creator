@@ -31,7 +31,10 @@ class MainPanel extends AbstractPanel {
 
     MainPanel(String id) {
         super(id);
-        addPanels();
+        addCampo();
+        addDatos();
+        addFiltro();
+        addVista();
         addCartas();
     }
 
@@ -40,11 +43,13 @@ class MainPanel extends AbstractPanel {
         listModel.setObject(cards);
     }
 
-    private void addPanels() {
+    private void addCampo() {
         campoPanel = new CampoMR4Panel("fieldPanel");
         campoPanel.setOutputMarkupId(true);
         add(campoPanel);
+    }
 
+    private void addDatos() {
         datosPanel = new DatosPanel("dataPanel", (OnChangeCallback) ajaxRequestTarget -> {
             recargarCampo(datosPanel.getDatosPuzzle().getMasterRule());
             campoPanel.cargar();
@@ -54,7 +59,9 @@ class MainPanel extends AbstractPanel {
         });
         datosPanel.setOutputMarkupId(true);
         add(datosPanel);
+    }
 
+    private void addFiltro() {
         busquedaFiltroPanel = new BusquedaFiltroPanel("searchFilterPanel", (OnChangeCallback) ajaxRequestTarget -> {
             cargar();
             ajaxRequestTarget.add(container);
@@ -62,10 +69,11 @@ class MainPanel extends AbstractPanel {
         });
         busquedaFiltroPanel.setOutputMarkupId(true);
         add(busquedaFiltroPanel);
+    }
 
+    private void addVista() {
         vistaPanel = new VistaCartaPanel("viewPanel", (OnAddCardCallback) (ajaxRequestTarget, stringBuilder) -> {
             if (notificar(stringBuilder)) {
-                recargarCampo(datosPanel.getDatosPuzzle().getMasterRule());
                 campoPanel.cargar();
                 //otra opción es pasar ajaxRequestTarget por parámetro a campoPanel.cargar y que añada el container
                 ajaxRequestTarget.add(campoPanel);
@@ -73,21 +81,6 @@ class MainPanel extends AbstractPanel {
         });
         vistaPanel.setOutputMarkupId(true);
         add(vistaPanel);
-
-    }
-
-    private void recargarCampo(Integer masterRule) {
-        switch (masterRule){
-            case 1:
-            case 2:
-                campoPanel = new CampoMR1y2Panel("fieldPanel");
-                break;
-            case 3:
-                campoPanel = new CampoMR3Panel("fieldPanel");
-                break;
-            case 4:
-                campoPanel = new CampoMR4Panel("fieldPanel");
-        }
     }
 
     private void addCartas() {
@@ -118,6 +111,20 @@ class MainPanel extends AbstractPanel {
             }
         };
         add(new Label("results", sizeModel));
+    }
+
+    private void recargarCampo(Integer masterRule) {
+        switch (masterRule){
+            case 1:
+            case 2:
+                campoPanel = new CampoMR1y2Panel("fieldPanel");
+                break;
+            case 3:
+                campoPanel = new CampoMR3Panel("fieldPanel");
+                break;
+            case 4:
+                campoPanel = new CampoMR4Panel("fieldPanel");
+        }
     }
 
     private Boolean notificar(StringBuilder stringBuilder) {

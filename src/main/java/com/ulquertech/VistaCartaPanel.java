@@ -13,7 +13,6 @@ import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.resource.PackageResourceReference;
-import plataforma1.wicket.semantic.NotifierProvider;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
@@ -23,19 +22,14 @@ import java.util.Map;
 
 public class VistaCartaPanel extends AbstractPanel {
     @Inject
-    private NotifierProvider notifierProvider;
-    @Inject
     private PuzzleCardBuilder puzzleCardBuilder;
     private WebMarkupContainer container;
-    private TextArea descriptionArea;
     private Image cardView;
     private ContextMenuBehavior menu;
     private Model<String> model;
     private OnAddCardCallback callback;
     private Card cardOnPreview;
     private Integer masterRule = 4;
-    private List<IMenuItem> pendulumMenus = new ArrayList<>();
-    private List<IMenuItem> extraMZMenus = new ArrayList<>();
 
 
     VistaCartaPanel(String id, OnAddCardCallback callback) {
@@ -60,7 +54,7 @@ public class VistaCartaPanel extends AbstractPanel {
         cardView.setOutputMarkupId(true);
         container.add(cardView);
 
-        descriptionArea = new TextArea<>("cardText", model);
+        TextArea descriptionArea = new TextArea<>("cardText", model);
         descriptionArea.setEnabled(false);
         descriptionArea.setOutputMarkupId(true);
         container.add(descriptionArea);
@@ -257,7 +251,7 @@ public class VistaCartaPanel extends AbstractPanel {
         private String location;
         private String position;
 
-        public CardMenuItem(String title, Integer id, Integer us, Integer zn, String loc, String pos) {
+        CardMenuItem(String title, Integer id, Integer us, Integer zn, String loc, String pos) {
             super(title);
             idCard = id;
             user = us;
