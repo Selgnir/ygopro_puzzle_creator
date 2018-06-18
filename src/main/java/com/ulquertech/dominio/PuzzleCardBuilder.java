@@ -2,6 +2,7 @@ package com.ulquertech.dominio;
 
 import org.imgscalr.Scalr;
 
+import javax.enterprise.context.SessionScoped;
 import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.swing.*;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@SessionScoped
 public class PuzzleCardBuilder implements Serializable {
     @Inject
     private CartasService cartasService;
