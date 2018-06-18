@@ -1,6 +1,8 @@
 package com.ulquertech.dominio;
 
-public class DatosPuzzle {
+import java.io.Serializable;
+
+public class DatosPuzzle implements Serializable {
     private String puzzleName = "My puzzle";
     private String opponentName = "My opponent";
     private Integer userLP = 8000;

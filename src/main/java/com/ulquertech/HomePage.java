@@ -15,6 +15,7 @@ public class HomePage extends WebPage {
     public HomePage(final PageParameters parameters) {
         super(parameters);
         setVersioned(false);
+        notifierProvider = new NotifierProvider();
         notifierProvider.createNotifier(this, "notifier");
         addButtons();
         addPanel();

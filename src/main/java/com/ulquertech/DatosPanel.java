@@ -37,29 +37,49 @@ public class DatosPanel extends AbstractPanel {
         model = new CompoundPropertyModel<>(datosPuzzle);
         Form<DatosPuzzle> form = new Form<>("form");
         form.setModel(model);
-        AjaxFormComponentUpdatingBehavior validarOnUpdate = new AjaxFormComponentUpdatingBehavior("onchange") {
+
+        TextField puzzleNameTextField = new TextField<String>("puzzleName");
+        puzzleNameTextField.add(new AjaxFormComponentUpdatingBehavior("onchange") {
             @Override
             protected void onUpdate(AjaxRequestTarget ajaxRequestTarget) {
                 StringBuilder stringBuilder = new StringBuilder();
                 validar();
                 notificar(stringBuilder);
             }
-        };
-
-        TextField puzzleNameTextField = new TextField<String>("puzzleName");
-        puzzleNameTextField.add(validarOnUpdate);
+        });
         form.add(puzzleNameTextField);
 
         TextField opponentNameTextField = new TextField<String>("opponentName");
-        opponentNameTextField.add(validarOnUpdate);
+        opponentNameTextField.add(new AjaxFormComponentUpdatingBehavior("onchange") {
+            @Override
+            protected void onUpdate(AjaxRequestTarget ajaxRequestTarget) {
+                StringBuilder stringBuilder = new StringBuilder();
+                validar();
+                notificar(stringBuilder);
+            }
+        });
         form.add(opponentNameTextField);
 
         NumberTextField userLpNumberField = new NumberTextField<Integer>("userLP");
-        userLpNumberField.add(validarOnUpdate);
+        userLpNumberField.add(new AjaxFormComponentUpdatingBehavior("onchange") {
+            @Override
+            protected void onUpdate(AjaxRequestTarget ajaxRequestTarget) {
+                StringBuilder stringBuilder = new StringBuilder();
+                validar();
+                notificar(stringBuilder);
+            }
+        });
         form.add(userLpNumberField);
 
         NumberTextField opponentLpNumberField = new NumberTextField<Integer>("opponentLP");
-        opponentLpNumberField.add(validarOnUpdate);
+        opponentLpNumberField.add(new AjaxFormComponentUpdatingBehavior("onchange") {
+            @Override
+            protected void onUpdate(AjaxRequestTarget ajaxRequestTarget) {
+                StringBuilder stringBuilder = new StringBuilder();
+                validar();
+                notificar(stringBuilder);
+            }
+        });
         form.add(opponentLpNumberField);
 
         DropDownChoice masterRuleDrop = new DropDownChoice<>("masterRule", Arrays.asList(1, 2, 3, 4));
