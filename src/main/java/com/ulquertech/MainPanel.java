@@ -125,6 +125,7 @@ class MainPanel extends AbstractPanel {
             case 4:
                 campoPanel = new CampoMR4Panel("fieldPanel");
         }
+        campoPanel.setOutputMarkupId(true);
     }
 
     private Boolean notificar(StringBuilder stringBuilder) {

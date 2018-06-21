@@ -1,22 +1,14 @@
 package com.ulquertech.dominio;
 
-import org.imgscalr.Scalr;
-
-import javax.enterprise.context.SessionScoped;
-import javax.imageio.ImageIO;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@SessionScoped
+@ApplicationScoped
 public class PuzzleCardBuilder implements Serializable {
     @Inject
     private CartasService cartasService;
@@ -47,65 +39,65 @@ public class PuzzleCardBuilder implements Serializable {
         }
     }
 
-    private ImageIcon setFieldIcon(Integer id, Integer user, String position, Dimension size) { //TODO: ver de mover esto a la ui
-        Map<String, Integer> map = new HashMap<String, Integer>();
-        map.put("POS_FACEUP", 0);
-        map.put("POS_FACEDOWN", 3);
-        map.put("POS_FACEUP_ATTACK", 0);
-        map.put("POS_FACEUP_DEFENCE", 1);
-        map.put("POS_FACEDOWN_DEFENCE", 2);
-        int pos = map.get(position);
-
-        try {
-            BufferedImage field = null;
-
-            if (pos == 0) {
-                if (user == 0) {
-                    field = ImageIO.read(new File("pics/" + id + ".jpg"));
-                    field = Scalr.resize(field, size.height, new BufferedImageOp[0]); //TODO: se podría reemplazar usando una clase de semantic para las imágenes
-                } else if (user == 1) {
-                    field = ImageIO.read(new File("pics/" + id + ".jpg"));
-                    field = Scalr.resize(field, size.height, new BufferedImageOp[0]);
-                    field = Scalr.rotate(field, Scalr.Rotation.CW_180, new BufferedImageOp[0]);
-                }
-            } else if (pos == 1) {
-                if (user == 0) {
-                    field = ImageIO.read(new File("pics/" + id + ".jpg"));
-                    field = Scalr.resize(field, size.height, new BufferedImageOp[0]);
-                    field = Scalr.rotate(field, Scalr.Rotation.CW_270, new BufferedImageOp[0]);
-                } else if (user == 1) {
-                    field = ImageIO.read(new File("pics/" + id + ".jpg"));
-                    field = Scalr.resize(field, size.height, new BufferedImageOp[0]);
-                    field = Scalr.rotate(field, Scalr.Rotation.CW_90, new BufferedImageOp[0]);
-                }
-            } else if (pos == 2) {
-                if (user == 0) {
-                    field = ImageIO.read(getClass().getResource("/fieldPics/cover.jpg"));
-                    field = Scalr.resize(field, size.height, new BufferedImageOp[0]);
-                    field = Scalr.rotate(field, Scalr.Rotation.CW_270, new BufferedImageOp[0]);
-                } else if (user == 1) {
-                    field = ImageIO.read(getClass().getResource("/fieldPics/cover.jpg"));
-                    field = Scalr.resize(field, size.height, new BufferedImageOp[0]);
-                    field = Scalr.rotate(field, Scalr.Rotation.CW_90, new BufferedImageOp[0]);
-                }
-            } else if (pos == 3) {
-                if (user == 0) {
-                    field = ImageIO.read(getClass().getResource("/fieldPics/cover.jpg"));
-                    field = Scalr.resize(field, size.height, new BufferedImageOp[0]);
-                } else if (user == 1) {
-                    field = ImageIO.read(getClass().getResource("/fieldPics/cover.jpg"));
-                    field = Scalr.resize(field, size.height, new BufferedImageOp[0]);
-                    field = Scalr.rotate(field, Scalr.Rotation.CW_180, new BufferedImageOp[0]);
-                }
-            }
-
-            return new ImageIcon(field); //TODO: Quitar swing
-        } catch (Exception e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-        }
-
-        return null;
-    }
+//    private ImageIcon setFieldIcon(Integer id, Integer user, String position, Dimension size) { //TODO: ver de mover esto a la ui
+//        Map<String, Integer> map = new HashMap<String, Integer>();
+//        map.put("POS_FACEUP", 0);
+//        map.put("POS_FACEDOWN", 3);
+//        map.put("POS_FACEUP_ATTACK", 0);
+//        map.put("POS_FACEUP_DEFENCE", 1);
+//        map.put("POS_FACEDOWN_DEFENCE", 2);
+//        int pos = map.get(position);
+//
+//        try {
+//            BufferedImage field = null;
+//
+//            if (pos == 0) {
+//                if (user == 0) {
+//                    field = ImageIO.read(new File("pics/" + id + ".jpg"));
+//                    field = Scalr.resize(field, size.height, new BufferedImageOp[0]); //TODO: se podría reemplazar usando una clase de semantic para las imágenes
+//                } else if (user == 1) {
+//                    field = ImageIO.read(new File("pics/" + id + ".jpg"));
+//                    field = Scalr.resize(field, size.height, new BufferedImageOp[0]);
+//                    field = Scalr.rotate(field, Scalr.Rotation.CW_180, new BufferedImageOp[0]);
+//                }
+//            } else if (pos == 1) {
+//                if (user == 0) {
+//                    field = ImageIO.read(new File("pics/" + id + ".jpg"));
+//                    field = Scalr.resize(field, size.height, new BufferedImageOp[0]);
+//                    field = Scalr.rotate(field, Scalr.Rotation.CW_270, new BufferedImageOp[0]);
+//                } else if (user == 1) {
+//                    field = ImageIO.read(new File("pics/" + id + ".jpg"));
+//                    field = Scalr.resize(field, size.height, new BufferedImageOp[0]);
+//                    field = Scalr.rotate(field, Scalr.Rotation.CW_90, new BufferedImageOp[0]);
+//                }
+//            } else if (pos == 2) {
+//                if (user == 0) {
+//                    field = ImageIO.read(getClass().getResource("/fieldPics/cover.jpg"));
+//                    field = Scalr.resize(field, size.height, new BufferedImageOp[0]);
+//                    field = Scalr.rotate(field, Scalr.Rotation.CW_270, new BufferedImageOp[0]);
+//                } else if (user == 1) {
+//                    field = ImageIO.read(getClass().getResource("/fieldPics/cover.jpg"));
+//                    field = Scalr.resize(field, size.height, new BufferedImageOp[0]);
+//                    field = Scalr.rotate(field, Scalr.Rotation.CW_90, new BufferedImageOp[0]);
+//                }
+//            } else if (pos == 3) {
+//                if (user == 0) {
+//                    field = ImageIO.read(getClass().getResource("/fieldPics/cover.jpg"));
+//                    field = Scalr.resize(field, size.height, new BufferedImageOp[0]);
+//                } else if (user == 1) {
+//                    field = ImageIO.read(getClass().getResource("/fieldPics/cover.jpg"));
+//                    field = Scalr.resize(field, size.height, new BufferedImageOp[0]);
+//                    field = Scalr.rotate(field, Scalr.Rotation.CW_180, new BufferedImageOp[0]);
+//                }
+//            }
+//
+//            return new ImageIcon(field); //TODO: Quitar swing
+//        } catch (Exception e) {
+//            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+//        }
+//
+//        return null;
+//    }
 
     public PuzzleCard createPuzzleCard(Integer id, Integer user, Integer zone, String location, String position) {
         return new PuzzleCard(id, user, zone, location, position);

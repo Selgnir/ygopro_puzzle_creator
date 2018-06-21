@@ -20,10 +20,10 @@
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
@@ -44,19 +44,20 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.eclipse.jetty.orbit:javax.mail.glassfish:1.4.1.v201005082020" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.eclipse.jetty.orbit:javax.activation:1.1.0.v201105071233" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.eclipse.jetty.orbit:javax.annotation:1.1.0.v201108011116" level="project" />
-    <orderEntry type="library" name="Maven: org.imgscalr:imgscalr-lib:4.2" level="project" />
-    <orderEntry type="library" name="Maven: gabriel-lib:plataforma:1" level="project" />
-    <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
-    <orderEntry type="library" name="Maven: wicket-lib:wicket-extensions:6.27.1" level="project" />
     <orderEntry type="library" name="Maven: com.googlecode.wicket-jquery-ui:wicket-jquery-ui:6.28.0" level="project" />
     <orderEntry type="library" name="Maven: com.googlecode.wicket-jquery-ui:wicket-jquery-ui-core:6.28.0" level="project" />
     <orderEntry type="library" name="Maven: org.threeten:threetenbp:1.3.1" level="project" />
-    <orderEntry type="library" name="Maven: com.vaynberg.wicket.select2:wicket-select2:2.3" level="project" />
-    <orderEntry type="library" name="Maven: org.json:json:20090211" level="project" />
-    <orderEntry type="library" name="Maven: javax.enterprise:cdi-api:1.0-SP4" level="project" />
-    <orderEntry type="library" name="Maven: org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.1_spec:1.0.0.Beta1" level="project" />
-    <orderEntry type="library" name="Maven: javax.annotation:jsr250-api:1.0" level="project" />
-    <orderEntry type="library" name="Maven: org.jboss.weld.servlet:weld-servlet:2.4.7.Final" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:javax.servlet-api:3.0.1" level="project" />
+    <orderEntry type="library" name="weld-api" level="project" />
+    <orderEntry type="library" name="jersey-client-1.5" level="project" />
+    <orderEntry type="library" name="jersey-client-1.19" level="project" />
+    <orderEntry type="library" name="cdi-api" level="project" />
+    <orderEntry type="library" name="servlet-api-3.0" level="project" />
+    <orderEntry type="library" name="jsp-api" level="project" />
+    <orderEntry type="library" name="wicket-select2-2.3" level="project" />
+    <orderEntry type="library" name="wicket-select2-2.3-es" level="project" />
+    <orderEntry type="library" name="plataforma1 (2)" level="project" />
+    <orderEntry type="library" name="wicket-auth-roles-6.27.1" level="project" />
+    <orderEntry type="library" name="derby" level="project" />
+    <orderEntry type="library" name="seam-conversation-spi-3.0.0.Final" level="project" />
   </component>
 </module>

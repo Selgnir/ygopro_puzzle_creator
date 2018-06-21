@@ -2,7 +2,7 @@ package com.ulquertech.dominio;
 
 import com.ulquertech.BusquedaFiltroData;
 
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.ApplicationScoped;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,12 +10,12 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.*;
 
-@SessionScoped
+@ApplicationScoped
 public class CartasService implements Serializable {
     private static Connection c;
     private static Statement stmnt;
 
-    private CartasService() {
+    public CartasService() {
         stmnt = null;
         c = null;
 

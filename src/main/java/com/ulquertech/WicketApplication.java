@@ -1,7 +1,12 @@
 package com.ulquertech;
 
+import org.apache.wicket.cdi.CdiConfiguration;
+import org.apache.wicket.cdi.ConversationPropagation;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
+
+import javax.enterprise.inject.spi.BeanManager;
+import javax.enterprise.inject.spi.CDI;
 
 /**
  * Application object for your web application.
@@ -25,6 +30,7 @@ public class WicketApplication extends WebApplication {
     public void init() {
         super.init();
 
-        // add your configuration here
+        BeanManager beanManager = CDI.current().getBeanManager();
+        new CdiConfiguration(beanManager).setPropagation(ConversationPropagation.NONE).configure(this);
     }
 }

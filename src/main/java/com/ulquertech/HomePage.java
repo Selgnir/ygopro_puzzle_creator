@@ -1,10 +1,15 @@
 package com.ulquertech;
 
+import com.ulquertech.resources.Resources;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.request.resource.CssResourceReference;
 import plataforma1.wicket.semantic.NotifierProvider;
+import plataforma1.wicket.semantic.SemanticResourceReference;
 
 import javax.inject.Inject;
 
@@ -12,13 +17,20 @@ public class HomePage extends WebPage {
     @Inject
     private NotifierProvider notifierProvider;
 
-    public HomePage(final PageParameters parameters) {
-        super(parameters);
+    public HomePage() {
         setVersioned(false);
         notifierProvider = new NotifierProvider();
         notifierProvider.createNotifier(this, "notifier");
         addButtons();
         addPanel();
+    }
+
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+        response.render(JavaScriptHeaderItem.forReference(SemanticResourceReference.get()));
+        response.render(CssHeaderItem.forReference(new CssResourceReference(Resources.class, "main.css")));
+        response.render(CssHeaderItem.forReference(new CssResourceReference(Resources.class, "style.css")));
     }
 
     private void addPanel() {

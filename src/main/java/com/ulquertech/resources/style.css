@@ -1,13 +1,17 @@
-#flex-container {
+.flex-container {
     display: flex;
     flex-direction: row;
-    /*width: 1200px;*/
+    width: 1200px;
     margin: 0 auto;
 }
 
-#flex-container > * {
+.flex-container > * {
     padding: 0.5em;
     flex: 1 100%;
+}
+
+.flexed-column {
+    width: 33%;
 }
 
 body {
@@ -21,21 +25,12 @@ body {
     overflow-x: hidden;
 }
 
+.ui.secondary.menu > .item {
+    padding-left: 0;
+}
 
-/*.flex-item {*/
-/*width: 33%;*/
-/*height: 100%;*/
-/*padding: 0.5em;*/
-/*}*/
+.ui.small.button > .icon {
+    margin: 0 !important;
+}
 
-/*@media all and (min-width: 600px) {*/
-/*.aside {*/
-/*flex: 1 auto;*/
-/*}*/
-/*}*/
 
-/*@media all and (min-width: 800px) {*/
-/*.main {*/
-/*flex: 1 0;*/
-/*}*/
-/*}*/
