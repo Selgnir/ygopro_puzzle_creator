@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("CdiManagedBeanInconsistencyInspection")
 class MainPanel extends AbstractPanel {
     @Inject
     private NotifierProvider notifierProvider;
