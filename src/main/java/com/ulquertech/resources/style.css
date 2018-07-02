@@ -18,6 +18,18 @@
     width: 33%;
 }
 
+.flex-container > #left {
+    width: 43%;
+}
+
+.flex-container > #center {
+    width: 30%;
+}
+
+.flex-container > #right {
+    width: 27%;
+}
+
 body {
     padding: 1em;
 }
@@ -49,4 +61,18 @@ body {
     margin: 50px auto auto -14px;
 }
 
+.inputField {
+    width: 220px;
+}
 
+.fieldLabel {
+    padding-left: 1em;
+}
+
+.numberField {
+    width: 170px;
+}
+
+.selectField {
+    width: 87px;
+}

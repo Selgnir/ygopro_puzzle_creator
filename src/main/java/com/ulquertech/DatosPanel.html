@@ -2,28 +2,26 @@
     <form class="ui form" wicket:id="form">
         <div class="fields">
             <div class="field">
-                <label>Puzzle Name</label>
-                <input type="text" wicket:id="puzzleName"/>
+                <label class="fieldLabel">Puzzle Name</label>
+                <input type="text" wicket:id="puzzleName" class="inputField"/>
             </div>
             <div class="field">
-                <label>Opponent Name</label>
-                <input type="text" wicket:id="opponentName"/>
-            </div>
-        </div>
-        <div class="fields">
-            <div class="field">
-                <label>Your LP</label>
-                <input type="number" wicket:id="userLP"/>
-            </div>
-            <div class="field">
-                <label>Opponent LP</label>
-                <input type="number" wicket:id="opponentLP"/>
+                <label class="fieldLabel">Opponent Name</label>
+                <input type="text" wicket:id="opponentName" class="inputField"/>
             </div>
         </div>
         <div class="fields">
             <div class="field">
-                <label>Master Rule</label>
-                <select wicket:id="masterRule"/>
+                <label class="fieldLabel">Your LP</label>
+                <input type="number" wicket:id="userLP" class="numberField"/>
+            </div>
+            <div class="field">
+                <label class="fieldLabel">Opponent LP</label>
+                <input type="number" wicket:id="opponentLP" class="numberField"/>
+            </div>
+            <div class="field">
+                <label class="fieldLabel">Master Rule</label>
+                <select wicket:id="masterRule" class="selectField"/>
             </div>
         </div>
     </form>
