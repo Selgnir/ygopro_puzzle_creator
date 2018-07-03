@@ -6,13 +6,13 @@
         </div>
         <div id="center">
             <div id="search" wicket:id="searchFilterPanel">search</div>
-            <div style="margin: 0.25em 0 0 0.5em;">
+            <div class="resultsLabel">
                 <label wicket:id="results"></label>
                 <label>&nbsp;results</label>
             </div>
-            <table class="ui stripped table verticalScroll" wicket:id="container" style="min-height: 460px; max-height: 460px;">
+            <table class="ui stripped table verticalScroll resultsList" wicket:id="container">
                 <tbody>
-                <tr class="leido" wicket:id="item">
+                <tr wicket:id="item">
                     <td class="collapsing"><a wicket:id="view" title="View"><i class="arrow right icon"></i></a></td>
                     <td class=""><label wicket:id="name" class="ui small_xs label">name</label></td>
                 </tr>

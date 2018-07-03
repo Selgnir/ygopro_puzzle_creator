@@ -1,3 +1,13 @@
+
+body {
+    padding: 1em;
+    background: #F4F5F2;
+}
+
+/*******************************
+              Flex
+*******************************/
+
 .flex-container {
     display: flex;
     flex-direction: row;
@@ -19,7 +29,7 @@
 }
 
 .flex-container > #left {
-    width: 43%;
+    width: 40.5%;
 }
 
 .flex-container > #center {
@@ -30,15 +40,13 @@
     width: 27%;
 }
 
-body {
-    padding: 1em;
-}
+/*******************************
+              Menu
+*******************************/
 
-.verticalScroll {
+#menu {
     display: block;
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
+    width: 6%;
 }
 
 .ui.secondary.menu > .item {
@@ -49,30 +57,66 @@ body {
     margin: 0 !important;
 }
 
+/*******************************
+              Data
+*******************************/
+
+#data {
+    padding-left: 1em;
+}
+
+.inputField {
+    width: 216px !important;
+}
+
+.fieldLabel {
+    padding-left: .5em;
+}
+
+.numberField {
+    width: 165px !important;
+}
+
+.selectField {
+    width: 87px !important;
+}
+
+/*******************************
+             Filtro
+*******************************/
+
+.resultsLabel {
+    margin: 0.25em 0 0 0.5em;
+}
+
+.resultsList {
+    min-height: 460px;
+    max-height: 460px;
+}
+
+.verticalScroll {
+    display: block;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/*******************************
+             Campo
+*******************************/
+
+.fullSpace {
+    width: 100% !important;
+}
+
+.banned {
+    margin: 50px auto auto 6px;
+}
+
 .verticalCard, .monsterCard {
     border: 1px solid #888888;
     width: 40px;
     height: 60px;
     min-width: 40px;
     min-height: 60px;
-}
-
-.banned {
-    margin: 50px auto auto -14px;
-}
-
-.inputField {
-    width: 220px;
-}
-
-.fieldLabel {
-    padding-left: 1em;
-}
-
-.numberField {
-    width: 170px;
-}
-
-.selectField {
-    width: 87px;
 }
